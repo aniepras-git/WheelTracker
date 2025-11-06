@@ -1,6 +1,7 @@
 ﻿// ViewModels/TradeEntryViewModel.cs - Set required fields in initializer
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Serilog;
 using System;
 using System.Windows;
 using WheelTracker.Models;
@@ -22,6 +23,7 @@ namespace WheelTracker.ViewModels
             Qty = 1
         };
 
+        
         [RelayCommand]
         private void Save()
         {
@@ -31,20 +33,21 @@ namespace WheelTracker.ViewModels
                 return;
             }
 
-            _db.Trades.Add(NewTrade);
-            _db.SaveChanges();
-
-            MessageBox.Show($"Trade saved: {NewTrade.Ticker} {NewTrade.Action}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
-            // Reset form
-            NewTrade = new Trade
+            try
             {
-                Ticker = string.Empty,
-                OpenDate = DateTime.Today,
-                Action = ActionType.STO,
-                CreditDebit = "Credit",
-                Qty = 1
-            };
+                _db.Trades.Add(NewTrade);
+                _db.SaveChanges();
+                Log.Information("Saved new trade: {Ticker} {Action}", NewTrade.Ticker, NewTrade.Action);
+
+                MessageBox.Show($"Trade saved: {NewTrade.Ticker} {NewTrade.Action}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                // Reset...
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Save trade failed");
+                MessageBox.Show($"Error: {ex.Message}");
+            }
         }
     }
 }

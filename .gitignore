@@ -1,0 +1,27 @@
+﻿# Visual Studio files
+.vs/
+*.suo
+*.user
+*.sln.docstates
+.vscode/
+bin/
+obj/
+
+# NuGet Packages
+*.nupkg
+packages/
+.nuget/
+
+# SQLite DB (if local; exclude if sensitive)
+*.db
+*.db-journal
+
+# Logs and temp
+logs/
+*.log
+*.tmp
+*.temp
+
+# OS files
+.DS_Store
+Thumbs.db

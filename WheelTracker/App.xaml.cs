@@ -1,6 +1,6 @@
-﻿// App.xaml.cs
+﻿using Serilog;
+using System;
 using System.Windows;
-using WheelTracker.Services;
 
 namespace WheelTracker
 {
@@ -8,12 +8,22 @@ namespace WheelTracker
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Information()
+                .WriteTo.Console()  // Now works with Serilog.Sinks.Console
+                .WriteTo.File("logs/wheeltracker-.txt", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+
+            // Optional: Test toast on startup
+            // ToastService.Instance.ShowInformation("WheelTracker loaded—monitoring positions.");
+
             base.OnStartup(e);
+        }
 
-            // THIS CREATES THE DB + TABLE
-            new AppDbContext().EnsureDatabaseCreated();
-
-            new Views.MainWindow().Show();
+        protected override void OnExit(ExitEventArgs e)
+        {
+            Log.CloseAndFlush();
+            base.OnExit(e);
         }
     }
 }
