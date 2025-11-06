@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:WheelTracker.ViewModels"
-        xmlns:helpers="clr-namespace:WheelTracker.Helpers"  <!-- For converters like IsOptionConverter -->
+        xmlns:helpers="clr-namespace:WheelTracker.Helpers"  <!-- Fixed: Ensure Helpers folder/namespace exists; add project ref if separate assembly -->
     mc:Ignorable="d"
         Title="New Trade Entry" Height="500" Width="400"
         WindowStartupLocation="CenterOwner"
@@ -17,7 +17,7 @@
                 <materialDesign:BundledTheme BaseTheme="Dark" PrimaryColor="DeepPurple" SecondaryColor="Lime" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <!-- Converters: Assume EnumHelper.cs provides these -->
+            <!-- Converters: Assume in Helpers/ (e.g., EnumToItemsSource.cs, IsOptionConverter.cs) -->
             <helpers:IsOptionConverter x:Key="IsOptionConverter" />
             <helpers:EnumToItemsSource x:Key="EnumToItemsSource" />
         </ResourceDictionary>
@@ -25,76 +25,79 @@
     <Grid Margin="20">
         <ScrollViewer>
             <materialDesign:Card Padding="15" Margin="0,0,0,10">
-                <StackPanel Orientation="Vertical" Spacing="10">
+                <StackPanel Orientation="Vertical">
+                    <!-- Fixed: Removed Spacing (use Margin on children if needed for compat) -->
                     <!-- Ticker -->
                     <TextBox materialDesign:HintAssist.Hint="Ticker (e.g., AAPL)"
                              Text="{Binding NewTrade.Ticker, UpdateSourceTrigger=PropertyChanged}"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,0,10" />
 
                     <!-- Action (STO/BTO) -->
                     <ComboBox materialDesign:HintAssist.Hint="Action"
-                              ItemsSource="{Binding Source={StaticResource EnumToItemsSource}, ConverterParameter={x:Type models:ActionType}}"
+                              ItemsSource="{Binding Converter={StaticResource EnumToItemsSource}, ConverterParameter={x:Type models:ActionType}}"
                               SelectedItem="{Binding NewTrade.Action}"
-                              Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="0,0,0,10" />
 
                     <!-- Strategy (CSP, CC, etc.) -->
                     <ComboBox materialDesign:HintAssist.Hint="Strategy"
-                              ItemsSource="{Binding Source={StaticResource EnumToItemsSource}, ConverterParameter={x:Type models:OptionStrategy}}"
+                              ItemsSource="{Binding Converter={StaticResource EnumToItemsSource}, ConverterParameter={x:Type models:OptionStrategy}}"
                               SelectedItem="{Binding NewTrade.Strategy}"
-                              Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="0,0,0,10" />
 
                     <!-- Qty -->
                     <TextBox materialDesign:HintAssist.Hint="Quantity (Contracts)"
                              Text="{Binding NewTrade.Qty, UpdateSourceTrigger=PropertyChanged}"
-                             PreviewTextInput="NumberValidationTextBox"  <!-- Restrict to numbers via code-behind or behavior -->
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                             PreviewTextInput="NumberValidationTextBox"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,0,10" />
 
-                        <!-- Premium -->
-                        <TextBox materialDesign:HintAssist.Hint="Premium per Contract"
+                    <!-- Premium -->
+                    <TextBox materialDesign:HintAssist.Hint="Premium per Contract"
                              Text="{Binding NewTrade.Premium, UpdateSourceTrigger=PropertyChanged, StringFormat=C2}"
                              PreviewTextInput="NumberValidationTextBox"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,0,10" />
 
-                        <!-- Strike (Visible if option strategy) -->
-                        <TextBox materialDesign:HintAssist.Hint="Strike Price"
+                    <!-- Strike (Visible if option strategy) -->
+                    <TextBox materialDesign:HintAssist.Hint="Strike Price"
                              Text="{Binding NewTrade.Strike, UpdateSourceTrigger=PropertyChanged, StringFormat=C2}"
                              PreviewTextInput="NumberValidationTextBox"
                              Visibility="{Binding NewTrade.Strategy, Converter={StaticResource IsOptionConverter}}"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,0,10" />
 
-                        <!-- Expiration (Visible if option) -->
-                        <materialDesign:DatePicker materialDesign:HintAssist.Hint="Expiration Date"
+                    <!-- Expiration (Visible if option) -->
+                    <materialDesign:DatePicker materialDesign:HintAssist.Hint="Expiration Date"
                                                SelectedDate="{Binding NewTrade.Expiration}"
                                                Visibility="{Binding NewTrade.Strategy, Converter={StaticResource IsOptionConverter}}"
-                                               Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                                               Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="0,0,0,10" />
 
-                        <!-- Open Date -->
-                        <materialDesign:DatePicker materialDesign:HintAssist.Hint="Open Date"
+                    <!-- Open Date -->
+                    <materialDesign:DatePicker materialDesign:HintAssist.Hint="Open Date"
                                                SelectedDate="{Binding NewTrade.OpenDate}"
-                                               Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                                               Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="0,0,0,10" />
 
-                        <!-- Fees -->
-                        <TextBox materialDesign:HintAssist.Hint="Fees"
+                    <!-- Fees -->
+                    <TextBox materialDesign:HintAssist.Hint="Fees"
                              Text="{Binding NewTrade.Fees, UpdateSourceTrigger=PropertyChanged, StringFormat=C2}"
                              PreviewTextInput="NumberValidationTextBox"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,0,10" />
 
-                        <!-- Credit/Debit -->
-                        <ComboBox materialDesign:HintAssist.Hint="Credit/Debit"
-                              ItemsSource="{Binding Source={StaticResource EnumToItemsSource}, ConverterParameter={x:Type models:CreditDebitType}}"
+                    <!-- Credit/Debit -->
+                    <ComboBox materialDesign:HintAssist.Hint="Credit/Debit"
+                              ItemsSource="{Binding Converter={StaticResource EnumToItemsSource}, ConverterParameter={x:Type models:CreditDebitType}}"
                               SelectedItem="{Binding NewTrade.CreditDebit}"
-                              Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="0,0,0,10" />
 
-                        <!-- Buttons -->
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10" Margin="0,20,0,0">
-                            <Button Content="Cancel"
-                                Style="{StaticResource MaterialDesignFlatButton}"
-                                Click="Cancel_Click" />
-                            <!-- Code-behind: Close() -->
-                            <Button Command="{Binding SaveCommand}"
-                                Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                                Content="Save" />
-                        </StackPanel>
+                    <!-- Buttons -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+                        <!-- Fixed: Removed Spacing -->
+                        <Button Style="{StaticResource MaterialDesignFlatButton}" Click="Cancel_Click" Margin="0,0,10,0">
+                            <TextBlock Text="Cancel" />
+                            <!-- Fixed: Single Content via child -->
+                        </Button>
+                        <Button Command="{Binding SaveCommand}" Style="{StaticResource MaterialDesignRaisedAccentButton}">
+                            <TextBlock Text="Save" />
+                            <!-- Fixed: Single Content via child -->
+                        </Button>
+                    </StackPanel>
                 </StackPanel>
             </materialDesign:Card>
         </ScrollViewer>

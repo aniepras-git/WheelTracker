@@ -55,7 +55,7 @@ namespace WheelTracker.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/WheelTracker;V1.0.0.0;component/views/openpositionswindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/WheelTracker;component/views/openpositionswindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\OpenPositionsWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

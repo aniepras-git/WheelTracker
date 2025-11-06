@@ -5,7 +5,7 @@ using System.Linq;
 using System.Windows.Data;
 using WheelTracker.Models;
 
-namespace WheelTracker.ViewModels
+namespace WheelTracker.Helpers
 {
     public static class EnumHelper
     {
@@ -21,10 +21,10 @@ namespace WheelTracker.ViewModels
 
     public class IsOptionConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
             => value is ActionType a && (a == ActionType.STO || a == ActionType.BTC);
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => throw new NotImplementedException();
     }
 
