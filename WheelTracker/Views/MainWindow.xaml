@@ -1,11 +1,11 @@
-﻿<Window x:Class="WheelTracker.MainWindow"
+﻿<Window x:Class="WheelTracker.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WheelTracker"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:helpers="clr-namespace:WheelTracker.Helpers"
+        xmlns:models="clr-namespace:WheelTracker.Models"
         mc:Ignorable="d"
         Title="Wheel Tracker - Options Strategy Tool" Height="600" Width="900"
         Style="{StaticResource MaterialDesignWindow}">
@@ -16,17 +16,17 @@
                     <TextBlock Text="Current Trades (Wheel Cycles)" Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
                     <DataGrid ItemsSource="{Binding Trades}" AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Symbol" Binding="{Binding Symbol}" />
-                            <DataGridTemplateColumn Header="Stage">
+                            <DataGridTextColumn Header="Ticker" Binding="{Binding Ticker}" />
+                            <DataGridTemplateColumn Header="Close Trans Type">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Stage}" />
+                                        <TextBlock Text="{Binding CloseTransType}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                                 <DataGridTemplateColumn.CellEditingTemplate>
                                     <DataTemplate>
-                                        <ComboBox ItemsSource="{helpers:EnumToItemsSource {x:Type local:WheelStage}}"
-                                                  SelectedItem="{Binding Stage}" />
+                                        <ComboBox ItemsSource="{helpers:EnumToItemsSource {x:Type models:CloseType}}"
+                                                  SelectedItem="{Binding CloseTransType}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellEditingTemplate>
                             </DataGridTemplateColumn>
@@ -40,12 +40,10 @@
                 <StackPanel>
                     <materialDesign:MaterialDatePicker SelectedDate="{Binding ExpirationDate}" 
                                                        materialDesign:HintAssist.Hint="Expiration Date Threshold" />
-                    <!-- Add sliders or other controls for IV/price alerts -->
                 </StackPanel>
             </TabItem>
             <TabItem Header="Reports">
                 <TextBlock Text="Performance Metrics: ROI, P/L Charts" />
-                <!-- Add LiveCharts here, e.g., <lvc:CartesianChart Series="{Binding ProfitLossSeries}" /> -->
             </TabItem>
         </TabControl>
     </Grid>

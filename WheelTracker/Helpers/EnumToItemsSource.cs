@@ -28,14 +28,25 @@ namespace WheelTracker.Helpers
 
         private string GetDescription(object enumValue)
         {
-            var descriptionAttribute = _type
-                .GetField(enumValue.ToString())
+            if (enumValue == null)
+            {
+                return string.Empty;
+            }
+
+            string enumString = enumValue.ToString() ?? string.Empty;
+
+            var fieldInfo = _type.GetField(enumString);
+
+            if (fieldInfo == null)
+            {
+                return enumString;
+            }
+
+            var descriptionAttribute = fieldInfo
                 .GetCustomAttributes(typeof(DescriptionAttribute), false)
                 .FirstOrDefault() as DescriptionAttribute;
 
-            return descriptionAttribute != null
-                ? descriptionAttribute.Description
-                : enumValue.ToString();
+            return descriptionAttribute?.Description ?? enumString;
         }
     }
 }

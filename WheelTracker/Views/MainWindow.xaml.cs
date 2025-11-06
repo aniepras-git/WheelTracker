@@ -8,6 +8,7 @@ namespace WheelTracker.Views
         public MainWindow()
         {
             InitializeComponent();
+            // DataContext = new MainWindowViewModel(); // Add if using MVVM for bindings
         }
 
         private void OpenTradeEntry(object sender, RoutedEventArgs e)

@@ -146,8 +146,8 @@ namespace WheelTracker.ViewModels
                 trade.CurrentSharePrice.HasValue && trade.Strike.HasValue && trade.Qty > 0)
             {
                 var premiumPerShare = trade.Premium / 100.0;
-                trade.Breakeven = trade.Strike.Value - premiumPerShare;
-                trade.UnrealizedGainLoss = (trade.CurrentSharePrice.Value - trade.Breakeven!.Value) * trade.Qty * 100;
+                trade.Breakeven = (decimal)(trade.Strike.Value - premiumPerShare);  // Fixed: Cast double to decimal
+                trade.UnrealizedGainLoss = (trade.CurrentSharePrice.Value - (double)trade.Breakeven) * trade.Qty * 100;  // Cast back if needed
                 trade.Moneyness = (trade.CurrentSharePrice.Value / trade.Strike.Value) * 100;
             }
         }

@@ -14,7 +14,7 @@ namespace WheelTracker.Services
             try
             {
                 var securities = await Yahoo.Symbols(ticker).Fields(Field.RegularMarketPrice).QueryAsync();
-                return securities[ticker].RegularMarketPrice;
+                return securities[ticker]?.RegularMarketPrice;
             }
             catch (Exception)
             {

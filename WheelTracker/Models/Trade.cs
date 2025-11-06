@@ -13,7 +13,7 @@ namespace WheelTracker.Models
     [Table("Trades")]
     public class Trade
     {
-        
+
         [Key] public int Id { get; set; }
 
         public string Ticker { get; set; } = string.Empty;
@@ -49,6 +49,17 @@ namespace WheelTracker.Models
         public double? UnrealizedGainLoss { get; set; }
         public double? CurrentSharePrice { get; set; }
 
-       
+        // Added calc to handle type conversion safely
+        public void CalculateBreakeven()
+        {
+            if (Strike.HasValue)
+            {
+                Breakeven = (decimal)(Strike.Value - Premium);  // Explicit cast from double
+            }
+            else
+            {
+                Breakeven = 0m;  // Default or handle error
+            }
+        }
     }
 }
