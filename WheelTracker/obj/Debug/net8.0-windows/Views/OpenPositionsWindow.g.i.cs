@@ -33,6 +33,8 @@ using System.Windows.Media.TextFormatting;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Shell;
+using WheelTracker;
+using WheelTracker.Helpers;
 
 
 namespace WheelTracker.Views {
