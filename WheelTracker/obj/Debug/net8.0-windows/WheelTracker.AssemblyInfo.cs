@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WheelTracker")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+887f3d3615edb8d12c924b68e5286635e8b034db")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9e41e0604c950e80b89ea5676cab4fa58f540267")]
 [assembly: System.Reflection.AssemblyProductAttribute("WheelTracker")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WheelTracker")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
