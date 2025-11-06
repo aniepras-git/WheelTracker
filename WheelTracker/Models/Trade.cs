@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -12,6 +13,7 @@ namespace WheelTracker.Models
     [Table("Trades")]
     public class Trade
     {
+        
         [Key] public int Id { get; set; }
 
         public string Ticker { get; set; } = string.Empty;
@@ -25,6 +27,7 @@ namespace WheelTracker.Models
         public int Qty { get; set; } = 1;
         public double Premium { get; set; }
         public double Fees { get; set; }
+        public decimal Breakeven { get; set; }  // E.g., strike - premium for puts
 
         // These are CALCULATED at runtime → NOT in DB
         [NotMapped] public int InitialDTE { get; set; }
@@ -45,5 +48,7 @@ namespace WheelTracker.Models
         public double? RealizedGainLoss { get; set; }
         public double? UnrealizedGainLoss { get; set; }
         public double? CurrentSharePrice { get; set; }
+
+       
     }
 }

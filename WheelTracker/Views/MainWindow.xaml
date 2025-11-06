@@ -8,18 +8,28 @@
         xmlns:helpers="clr-namespace:WheelTracker.Helpers"
         mc:Ignorable="d"
         Title="Wheel Tracker - Options Strategy Tool" Height="600" Width="900"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}">
+        Style="{StaticResource MaterialDesignWindow}">
     <Grid>
         <TabControl>
             <TabItem Header="Portfolio Dashboard">
                 <StackPanel>
-                    <TextBlock Text="Current Positions (Wheel Cycles)" Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
-                    <DataGrid ItemsSource="{Binding Positions}" AutoGenerateColumns="False">
+                    <TextBlock Text="Current Trades (Wheel Cycles)" Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
+                    <DataGrid ItemsSource="{Binding Trades}" AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Symbol" Binding="{Binding Symbol}" />
-                            <DataGridTextColumn Header="Strategy Stage" Binding="{Binding Stage}" />
+                            <DataGridTemplateColumn Header="Stage">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Stage}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <ComboBox ItemsSource="{helpers:EnumToItemsSource {x:Type local:WheelStage}}"
+                                                  SelectedItem="{Binding Stage}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
                             <DataGridTextColumn Header="Breakeven" Binding="{Binding Breakeven, StringFormat=C2}" />
                             <DataGridTextColumn Header="Premium Collected" Binding="{Binding Premium, StringFormat=C2}" />
                         </DataGrid.Columns>
@@ -28,14 +38,14 @@
             </TabItem>
             <TabItem Header="Alerts">
                 <StackPanel>
-                    <materialDesign:DatePicker SelectedDate="{Binding ExpirationDate}" 
-                                               materialDesign:HintAssist.Hint="Expiration Date Threshold" />
-                    <!-- Add more alert controls here, e.g., sliders for IV changes -->
+                    <materialDesign:MaterialDatePicker SelectedDate="{Binding ExpirationDate}" 
+                                                       materialDesign:HintAssist.Hint="Expiration Date Threshold" />
+                    <!-- Add sliders or other controls for IV/price alerts -->
                 </StackPanel>
             </TabItem>
             <TabItem Header="Reports">
-                <!-- Integrate charts here, e.g., using LiveCharts.Wpf -->
                 <TextBlock Text="Performance Metrics: ROI, P/L Charts" />
+                <!-- Add LiveCharts here, e.g., <lvc:CartesianChart Series="{Binding ProfitLossSeries}" /> -->
             </TabItem>
         </TabControl>
     </Grid>

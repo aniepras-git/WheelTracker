@@ -132,5 +132,8 @@ C:\Users\aniep\source\repos\WheelTracker\WheelTracker\obj\Debug\net8.0-windows\W
 C:\Users\aniep\source\repos\WheelTracker\WheelTracker\obj\Debug\net8.0-windows\ref\WheelTracker.dll
 C:\Users\aniep\OneDrive\GROK\Coding\WheelTracker\WheelTracker\obj\Debug\net8.0-windows\WheelTracker.csproj.AssemblyReference.cache
 C:\Users\aniep\OneDrive\GROK\Coding\WheelTracker\WheelTracker\obj\Debug\net8.0-windows\Views\OpenPositionsWindow.baml
+C:\Users\aniep\OneDrive\GROK\Coding\WheelTracker\WheelTracker\obj\Debug\net8.0-windows\App.baml
 C:\Users\aniep\OneDrive\GROK\Coding\WheelTracker\WheelTracker\obj\Debug\net8.0-windows\Views\OpenPositionsWindow.g.cs
+C:\Users\aniep\OneDrive\GROK\Coding\WheelTracker\WheelTracker\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\aniep\OneDrive\GROK\Coding\WheelTracker\WheelTracker\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\aniep\OneDrive\GROK\Coding\WheelTracker\WheelTracker\obj\Debug\net8.0-windows\WheelTracker_MarkupCompile.cache
