@@ -1,0 +1,10 @@
+﻿<Application x:Class="WheelTracker.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:WheelTracker.ViewModels"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <Application.Resources>
+        <!-- THIS IS THE MISSING RESOURCE -->
+        <vm:IsOptionConverter x:Key="IsOptionConverter" />
+    </Application.Resources>
+</Application>
